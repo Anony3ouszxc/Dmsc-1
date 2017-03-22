@@ -77,7 +77,7 @@ class Post extends ActiveRecord
         $limit = $limit ? $limit : $this->perPage;
 
         $groupField  = 'category_' . $_COOKIE['cms_lang'];
-        $sql         = "select SQL_CALC_FOUND_ROWS * from post where category_id=? and publish='on' limit $start,$limit";
+        $sql         = "select SQL_CALC_FOUND_ROWS * from post where category_id=? and publish='on' order by priority asc, ts desc limit $start,$limit";
         $data        = $this->query( $sql , [ $keyword ] )->getAll(\PDO::FETCH_ASSOC);
         $total       = $this->query("select FOUND_ROWS()")->getAll(\PDO::FETCH_ASSOC);
         $totalRecord = is_object($total->offsetGet(0)) ? $total->offsetGet(0)->attributes['found_rows()'] : 0;
@@ -97,15 +97,28 @@ class Post extends ActiveRecord
         return $data;
     }
 
-    public function getList($keyword='', $limit="")
+    public function getList($keyword='', $limit="", $category_id="")
     {
         $segment = $this->params['start_segment'];
         $page  = Url::segment($segment+3) ? Url::segment($segment+3)-1 : 0;
         $this->perPage = $limit ? $limit : $this->perPage;
-        $start = ($page) ? $page * $this->perPage : 0;
-        $limit = $limit ? $limit : $this->perPage;
-        $sql         = "select SQL_CALC_FOUND_ROWS * from post where title like ? limit $start,$limit";
-        $stmt        = $this->query( $sql , [ '%'.$keyword.'%' ] );
+        $start    = ($page) ? $page * $this->perPage : 0;
+        $limit    = $limit ? $limit : $this->perPage;
+        $addWhere = array();
+        $params   = array();
+        if( $keyword ){
+            array_push($addWhere, 'title like ?');
+            array_push($params, '%'.$keyword .'%');
+        }
+        if( $category_id && $category_id != 'all' ){
+            array_push($addWhere, 'category_id=?');
+            array_push($params, $category_id);
+        }
+        $sql         = "select SQL_CALC_FOUND_ROWS * from post " . ( count($addWhere) > 0 ? "where " . join(" and ", $addWhere ) : '' ). " order by post_id desc,ts desc limit $start,$limit";
+        // show($sql);
+        // show($params);
+        // exit;
+        $stmt        = $this->query( $sql , $params );
         $data        = $stmt->getAll(\PDO::FETCH_ASSOC);
         $total       = $this->query("select FOUND_ROWS()")->getAll(\PDO::FETCH_ASSOC);
         $totalRecord = is_object($total->offsetGet(0)) ? $total->offsetGet(0)->attributes['found_rows()'] : 0;

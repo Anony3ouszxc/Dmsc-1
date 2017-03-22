@@ -35,7 +35,7 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
 				</div>
 				<div class="box-divider m-a-0"></div>
 				<div class="box-body">
-					<form action="<?php echo $formLink?>" enctype="multipart/form-data" method="POST" id="form-layout">
+					<form action="<?php echo $formLink?>" enctype="multipart/form-data" method="POST" id="form-layout" name="form-layout">
 						<?php if ( $thumb ) { echo '<img src='.$thumb.' atl="">'; }?>
 			            <div class="form-group">
 			              <label for="inputFile"><?php echo $this->trans->get( 'banner_image' )?></label>
@@ -134,7 +134,7 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
 													<textarea ui-jp="summernote" ui-options="{height: 200}" class="form-control" rows="4" name="<?php echo $rowName?>[content][]">
 														<?php echo html_entity_decode($row['content'][$colIndex])?>
 													</textarea>
-													<input type="hidden" name="<?php echo $rowName?>[config][]" value="<?php echo $_layout?>">
+													<input type="hidden" name="<?php echo $rowName?>[config][]" value="<?php echo $_layout?>" required>
 												</div>
 											</div>
 										<?php } ?>

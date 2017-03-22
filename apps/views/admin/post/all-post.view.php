@@ -2,6 +2,8 @@
 use Apps\Models\User;
 use Apps\Models\Category;
 $baseUrl = $this->data['baseUrl'];
+$categoryList = Category::findByType( 'post' );
+$catname      = 'name_'.$this->data['lang'];
 ?>
 <div class="padding">
   <div class="box">
@@ -11,6 +13,18 @@ $baseUrl = $this->data['baseUrl'];
     <!-- start tool table -->
     <form class="navbar-form form-inline pull-right pull-none-sm navbar-item v-m" method="GET" action="<?php echo $baseUrl?>/post/all-post" id="form-search" role="search">
       <div class="form-group l-h m-a-0">
+        <div class="form-group">
+          <label for="categoryLabel"><?php echo $this->trans->get( 'categories' )?></label>
+          <select name="category_id" class="form-control" id="categoryLabel"  required><!-- ui-jp="select2" ui-options="{tags:true}" -->
+          <option value="all"><?php echo $this->trans->get('see_all')?></option>
+          <?php
+          foreach ( $categoryList as $category ) {
+            $selected = ( $_GET['category_id']==$category->category_id ) ? 'selected':'';
+            echo '<option value="'.$category->category_id.'" '.$selected.'>'.$category->$catname.'</option>';
+          }
+          ?>
+          </select>
+        </div>
         <div class="input-group input-group-sm">
           <input type="text" class="form-control p-x b-a rounded" name="keyword" value="<?php echo $this->keyword?>" placeholder="<?php echo $this->trans->get('keyword')?>">
           <span class="input-group-btn">

@@ -17,11 +17,11 @@ if( !empty($this->userInfo['file_id']) ){
         <div class="box-divider m-a-0"></div>
         <div class="box-body">
           <form role="form" action="/user/update-profile/<?php echo $this->userInfo['user_id']?>" method="POST" enctype="multipart/form-data" id="form-update-profile">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <?php if ( $thumb ) { echo '<img src='.$thumb.' atl="">'; }?>
               <label for="inputFile"><?php echo $this->trans->get( 'avatar' )?></label>
               <input type="file" id="inputFile" class="form-control" name="fileinput" accept="image/*">
-            </div>
+            </div> -->
             <div class="form-group">
               <label for="inputUsername"><?php echo $this->trans->get('user_username')?></label>
               <input type="text" id="inputUsername" class="form-control" disabled value="<?php echo $this->userInfo['username']?>">

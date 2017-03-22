@@ -6,7 +6,8 @@ $pdffile = '';
 if ( !empty( $this->data['record'] ) ) {
   $data     = $this->data['record'];
   $edit     = true;
-  $formLink = $this->data['baseUrl'].'post/update-post/'.$data['post_id'];
+  $postId   = $data['post_id'];
+  $formLink = $this->data['baseUrl'].'post/update-post/'.$postId;
   if ( $data['file_id'] ) {
     $image = Files::find( $data['file_id'] );
     $thumb = $this->data['baseUrl'].$image->attributes['thumbpath'];
@@ -55,8 +56,14 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
               <!-- <div id="inputDetail" ui-jp="summernote" ui-options="{height:'200px'}"></div> -->
             </div>
             <div class="form-group">
-              <label for="inputPDF"><?php echo $this->trans->get( 'pdf_attach' ); if( $pdffile ){ echo '('.$pdffile.')'; }?></label>
+              <label for="inputPDF"><?php echo $this->trans->get( 'pdf_attach' );?></label>
               <input type="file" id="inputPDF" class="form-control" name="pdfinput" accept="application/pdf">
+              <?php if( $pdffile ){
+                echo '<div class="row pdf-' . $data['pdf_id'] . '">';
+                echo '<i class="material-icons md-24 text-danger delete-pdf" data-id="'. $postId. '"></i>';
+                echo '('.$pdffile.')';
+                echo '</div>';
+              }?>
             </div>
             <div class="form-group">
               <label for="categoryLabel"><?php echo $this->trans->get( 'categories' )?></label>
@@ -73,7 +80,7 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
             <div class="row">
               <div class="col-sm-3">
                 <label for="inputSort"><?php echo $this->trans->get( 'priority' )?></label>
-                <input type="number" class="form-control" id="inputSort" placeholder="<?php echo $this->trans->get( 'priority' )?>" name="data[priority]" value="<?php if ( $edit ) { echo $data['priority']; }?>" required>
+                <input type="number" class="form-control" id="inputSort" placeholder="<?php echo $this->trans->get( 'priority' )?>" name="data[priority]" value="<?php if ( $edit ) { echo $data['priority']; }?>">
               </div>
               <div class="col-sm-9"></div>
             </div>

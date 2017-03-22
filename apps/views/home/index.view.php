@@ -456,6 +456,8 @@ $embed   = array(
 			            	?>
 			            </div>
 			        </div>
+			        <noscript><a href="http://www.histats.com" target="_blank"><img  src="http://sstatic1.histats.com/0.gif?3180334&101"alt="free stats" border="0"></a></noscript>  <!-- Histats.com  END  -->
+<a href="http://appcho.co/rss-xml"><img alt="Brand" src="<?php echo $baseUrl?>assets/cms/images/rss-01.png"></a>
 		    	</div>
 			</div>
 		</div>
