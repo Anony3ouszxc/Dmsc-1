@@ -26,7 +26,7 @@ if (!defined('CF_SYSTEM')) {
  */
 Configuration::initialize(
     function ($config) {
-        $config->default = 'db';
+        $config->default = 'live';
         $config->setConfig(
             array(
                 'db' => array(

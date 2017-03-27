@@ -73,7 +73,7 @@ return array(
     * Example :
     * environment => 'development/production'
     */
-    'environment' => 'development', //Errors are turned on in development environment
+    'environment' => 'production', //Errors are turned on in development environment
 
     /*
     *--------------------------------------------------------------------------
