@@ -157,4 +157,6 @@ return [
 	'banner_image'			   => 'ภาพแบนเนอร์',
 	'pdf_attach'			   => 'แนบไฟล์ PDF',
 	'container_class' 		   => 'ระบุคลาสเฉพาะหน้า',
+	'confirm_delete_pdf'	   => 'ยืนยันการลบไฟล์ PDF',
+	'intro_page'			   => 'หน้า Intro'
 ];

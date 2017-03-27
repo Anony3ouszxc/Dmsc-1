@@ -75,7 +75,7 @@ class Banner extends ActiveRecord
         $this->perPage = $limit ? $limit : $this->perPage;
         $start = ($page) ? $page * $this->perPage : 0;
         $limit = $limit ? $limit : $this->perPage;
-        $sql         = "select SQL_CALC_FOUND_ROWS * from banner where title like ? limit $start,$limit";
+        $sql         = "select SQL_CALC_FOUND_ROWS * from banner where title like ? order by banner_id desc limit $start,$limit";
         $stmt        = $this->query( $sql , [ '%'.$keyword.'%' ] );
         $data        = $stmt->getAll(\PDO::FETCH_ASSOC);
         $total       = $this->query("select FOUND_ROWS()")->getAll(\PDO::FETCH_ASSOC);

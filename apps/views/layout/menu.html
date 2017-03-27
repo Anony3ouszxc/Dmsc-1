@@ -244,6 +244,15 @@
 							<span class="nav-text"><?php echo $this->trans->get('report')?></span>
 						</a>
 					</li>
+					<!-- INTRO -->
+					<li class="<?php if(!empty($this->data['isIntro'])){ echo 'active'; }?>">
+						<a href="<?php echo $baseUrl?>module/intro" class="no-ajax">
+							<span class="nav-icon">
+								<i class="material-icons">&#xe24d;</i>
+							</span>
+							<span class="nav-text">Intro Page</span>
+						</a>
+					</li>
 					<!-- SETTING -->
 					<!-- <li class="<?php if(!empty($this->data['isSetting'])){ echo 'active'; }?>">
 						<a href="<?php echo $baseUrl?>setting/index" class="no-ajax">

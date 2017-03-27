@@ -56,7 +56,7 @@ class Category extends ActiveRecord
         $limit = $limit ? $limit : $this->perPage;
 
         $groupField  = 'name' . $_COOKIE['cms_lang'];
-        $sql         = "select SQL_CALC_FOUND_ROWS * from category where type=? and (name_th like ? or name_en like ?) limit $start,$limit";
+        $sql         = "select SQL_CALC_FOUND_ROWS * from category where type=? and (name_th like ? or name_en like ?) order by category_id desc limit $start,$limit";
         $stmt        = $this->query( $sql , [ $type, '%'.$keyword.'%', '%'.$keyword.'%' ] );
         $data        = $stmt->getAll(\PDO::FETCH_ASSOC);
         $total       = $this->query("select FOUND_ROWS()")->getAll(\PDO::FETCH_ASSOC);

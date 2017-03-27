@@ -50,7 +50,7 @@ class Page extends ActiveRecord
         $start = ($page) ? $page * $this->perPage : 0;
         $limit = $limit ? $limit : $this->perPage;
 
-        $sql         = "select SQL_CALC_FOUND_ROWS * from page where title like ? limit $start,$limit";
+        $sql         = "select SQL_CALC_FOUND_ROWS * from page where title like ? order by page_id desc limit $start,$limit";
         $stmt        = $this->query( $sql , [ '%'.$keyword.'%' ] );
         $data        = $stmt->getAll(\PDO::FETCH_ASSOC);
         $total       = $this->query("select FOUND_ROWS()")->getAll(\PDO::FETCH_ASSOC);
@@ -58,6 +58,17 @@ class Page extends ActiveRecord
         $paginator   = Pagination::instance($this);
         $pagination  = $paginator->createLinks($totalRecord);
         return array( 'data'=> $data, 'pagination' => $pagination);
+    }
+
+    public function updateRecord($data, $table){
+        $keys = array_keys( $data );
+        $vals = array_values( $data );
+        foreach( $data as $k => $v ){
+            $bind[] = '?';
+        }
+        $this->query('truncate table ' . $table);
+        $sql  = "replace into $table (".join(",", $keys).") values (" . join( ",", $bind ) . ")";
+        $this->query( $sql, $vals );
     }
 
 }// End of the User Model

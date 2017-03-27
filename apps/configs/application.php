@@ -92,7 +92,7 @@ return array(
     * You can set your application default language here. Language library will
     * will take care rest.
     */
-    'language' => 'en',
+    'language' => 'th',
     /*
     *--------------------------------------------------------------------------
     * Application Timezone
@@ -248,7 +248,7 @@ return array(
         'avatar_path'   => ASSETS_PATH . DS . 'avatar',
 
         'menu' => array(
-            'menu','page','post','user','role','banner','slider',
+            'menu','page','post','user','role','banner','slider','intro_page'
         )
     ),
 );

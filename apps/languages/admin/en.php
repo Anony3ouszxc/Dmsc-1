@@ -162,4 +162,6 @@ return [
 	'banner_image'			   => 'Banner Image',
 	'pdf_attach'			   => 'PDF attachment',
 	'container_class' 		   => 'Class Container',
+	'confirm_delete_pdf'	   => 'Confirm delete PDF?',
+	'intro_page'			   => 'Intro Page'
 ];

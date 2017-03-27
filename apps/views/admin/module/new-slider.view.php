@@ -47,16 +47,16 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
               <label for="inputDetail"><?php echo $this->trans->get('description')?></label>
               <textarea class="form-control" id="inputDetail" rows="4" placeholder="<?php echo $this->trans->get('description')?>" name="data[detail]" required><?php if($edit){ echo $data['detail']; }?></textarea>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="categoryLabel"><?php echo $this->trans->get('categories')?></label>
-              <select name="data[category_id]" class="form-control" id="categoryLabel"  required><!-- ui-jp="select2" ui-options="{tags:true}" -->
+              <select name="data[category_id]" class="form-control" id="categoryLabel"  required>
                 <?php
                 foreach($categoryList as $category){
                   $selected = ($data['category_id']==$category->category_id) ? 'selected':'';
                   echo '<option value="'.$category->category_id.'" '.$selected.'>'.$category->$catname.'</option>';
                 }
                 ?>
-              </select>
+              </select> -->
               <!-- <div class="row">
                 <div class="col-sm-6">
                   <label for="categoryLabelEN"><?php echo $this->trans->get('category_en')?></label>
@@ -81,7 +81,7 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
                   </select>
                 </div>
               </div> -->
-            </div>
+            <!-- </div> -->
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-3">

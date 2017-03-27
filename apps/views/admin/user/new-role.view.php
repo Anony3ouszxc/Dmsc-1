@@ -36,9 +36,9 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
 						<tr>
 							<th>#</th>
 							<th><?php echo $this->trans->get('department')?></th>
-							<th><?php echo $this->trans->get('see_menu')?></th>
-							<th><?php echo $this->trans->get('writer')?></th>
-							<th><?php echo $this->trans->get('publisher')?></th>
+							<th><?php echo $this->trans->get('active')?></th>
+							<!-- <th><?php echo $this->trans->get('writer')?></th>
+							<th><?php echo $this->trans->get('publisher')?></th> -->
 						</tr>
 					</thead>
 					<tfoot>
@@ -58,7 +58,7 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
 									</label>
 								</div>
 							</td>
-							<td>
+							<!-- <td>
 								<div class="col-sm-10">
 									<label class="ui-switch ui-switch-md info m-t-xs">
 										<input type="checkbox" name="data[role_config][<?php echo $code."_write"?>]" class="has-value"
@@ -75,7 +75,7 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
 										<i></i>
 									</label>
 								</div>
-							</td>
+							</td> -->
 						</tr>
 						<?php $i++; }?>
 					</tbody>
