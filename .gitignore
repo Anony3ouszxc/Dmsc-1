@@ -1,8 +1,8 @@
-assets/thumbnail/*
-assets/post/*
-assets/page/*
-assets/slider/*
-assets/category/*
-assets/themeforest/*
-assets/js/lib/*
-assets/banner/*
+!../assets/thumbnail/*
+!../assets/post/*
+!../assets/page/*
+!../assets/slider/*
+!../assets/category/*
+!../assets/themeforest/*
+!../assets/js/lib/*
+!../assets/banner/*
