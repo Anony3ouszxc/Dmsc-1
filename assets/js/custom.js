@@ -289,7 +289,7 @@ var backend = {
     },
     saveMapMenu: function(){
         var self = this;
-        var different = $('select,input:text,input:number').filter(function(){
+        var different = $('select,input').filter(function(){
             return $(this).attr('data-default') != $(this).val();
         });
         if( different.length ){
