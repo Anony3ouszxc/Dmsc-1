@@ -4,7 +4,9 @@ use Apps\Models\Page;
 function generateTree( $id, $parentId=''){
 	$current = Menu::find( $id );
 	$parent  = ( $parentId ) ? 'treegrid-parent-'.$parentId : '';
-	$tpl = '<tr class="treegrid-'.$id.' '.$parent.'"><td>'.$current->attributes['name'].'</td>';
+	$tpl = '<tr class="treegrid-'.$id.' '.$parent.'">';
+	$tpl .= '<td>'.$current->attributes['name'].'</td>';
+	$tpl .= '<td><input type="number" name="data[priority]['.$id.']" min="1" max="999" value="'.$current->attributes['priority'].'" data-default="'.$current->attributes['priority'].'"></td>';
 	$tpl .= '<td><input type="text" name="data[name_en]['.$id.']" class="form-control" data-default="'.$current->attributes['name_en'].'" value="'.$current->attributes['name_en'].'"></td>';
 	$tpl .= '<td>'.getOption($current->attributes['menu_id'], $current->attributes).'</td></tr>';
 	$menu = Menu::findByParentId( $id );
@@ -55,6 +57,7 @@ function getOption($id, $rowData=''){
 				<thead>
 					<tr>
 						<th style="width:35%"><?php echo $this->trans->get('menu_name_th')?></th>
+						<th style="width:20px;"></th>
 						<th style="width:35%" class="hidden-xs"><?php echo $this->trans->get('menu_name_en')?></th>
 						<th><?php echo $this->trans->get('target_link')?></th>
 					</tr>

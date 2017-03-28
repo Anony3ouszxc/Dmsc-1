@@ -166,8 +166,8 @@ var backend = {
         })
         .on('click.deletePDF', '.delete-pdf', function(e){
             e.preventDefault();
-            rowId = $(this).data('id');
-            modal = $('#modal-confirm-delete');
+            var rowId = $(this).data('id'),
+                modal = $('#modal-confirm-delete');
             if( modal.size() ){
                 msg = modal.find(".modal-body").data("pdf");
                 modal.find(".modal-body").empty().append(msg);
@@ -289,7 +289,7 @@ var backend = {
     },
     saveMapMenu: function(){
         var self = this;
-        var different = $('select,input:text').filter(function(){
+        var different = $('select,input:text,input:number').filter(function(){
             return $(this).attr('data-default') != $(this).val();
         });
         if( different.length ){

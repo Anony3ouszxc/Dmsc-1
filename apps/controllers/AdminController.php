@@ -265,7 +265,15 @@ class AdminController extends AbstractBaseController
 					$this->log('activity', 'update mapping menu id : ' . $menuId . ', set name en : : ' . $_name );
 				}
 			}
-
+			if(!empty($data['priority'])){
+				$nameEn = $data['priority'];
+				foreach( $nameEn as $menuId => $no ){
+					$update = Menu::find( $menuId );
+					$update->priority = $no;
+					$update->save();
+					$this->log('activity', 'update menu id : ' . $menuId . ', set priority : : ' . $no );
+				}
+			}
 			$rs = array(
 				'success' => 1,
 				'message' => $this->trans->get('update_success')
