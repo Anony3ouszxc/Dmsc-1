@@ -19,7 +19,7 @@ $catname      = 'name_'.$this->data['lang'];
           <option value="all"><?php echo $this->trans->get('see_all')?></option>
           <?php
           foreach ( $categoryList as $category ) {
-            $selected = ( $_GET['category_id']==$category->category_id ) ? 'selected':'';
+            $selected = (isset($_GET['category_id']) && $_GET['category_id']==$category->category_id ) ? 'selected':'';
             echo '<option value="'.$category->category_id.'" '.$selected.'>'.$category->$catname.'</option>';
           }
           ?>

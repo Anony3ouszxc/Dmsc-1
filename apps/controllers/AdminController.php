@@ -597,11 +597,9 @@ class AdminController extends AbstractBaseController
 					foreach( $this->params['menu'] as $code ){
 						$menuList[ $code ] = $this->trans->get( $code );
 					}
-					show($categoryList);
 					foreach( $categoryList as $row ){
 						$menuList[ $row->category_id ] = $row->{'name_' . $this->lang};
 					}
-					show($menuList);exit;
 					$data['menuList'] = $menuList;
 				break;
 				case 'add-role':
@@ -952,6 +950,7 @@ class AdminController extends AbstractBaseController
 			$post->publish_end     = !empty($data['publish_end']) ? $data['publish_end'] : $now;
 			$post->last_publish    = $now;
 			$post->container_class = $data['container_class'];
+			$post->priority        = !empty($data['priority']) ? $data['priority'] : 0;
 			if( $fileId ){ $post->file_id = $fileId; }
 			if( $pdfId ){ $post->pdf_id = $pdfId; }
 			$post->save();
@@ -1107,68 +1106,89 @@ class AdminController extends AbstractBaseController
 	}
 
 	public function reportAction( $action ) {
-		$data = array(
-			'isReport' => 1,
-			'title'    => 'Report',
-			'action'   => $action,
-			'report'   => array(
-				[
-					[
-						'title'    => $this->trans->get('title_post'),
-						'subtitle' => $this->trans->get('top10_post_edit'),
-						'count'    => Post::all()->count(),
-						'list'     => Post::findBySql('select title,ts from post order by ts desc limit 10')
-					],
-					[
-						'title'    => $this->trans->get('title_page'),
-						'subtitle' => $this->trans->get('top10_page_edit'),
-						'count'    => Page::all()->count(),
-						'list'     => Page::findBySql('select title,ts from page order by ts desc limit 10')
-					],
-					[
-						'title'    => $this->trans->get('title_user'),
-						'subtitle' => $this->trans->get('top10_user_edit'),
-						'count'    => User::all()->count(),
-						'list'     => User::findBySql('select firstname as title,ts from user order by ts desc limit 10')
-					]
-				],
-				[
-					[
-						'title'    => $this->trans->get('title_user'),
-						'subtitle' => $this->trans->get('top10_user_login'),
-						'count'    => Logs::findByLogsType('login')->count(),
-						'list'     => Logs::findBySql('select distinct message as title,user_id,ts from logs where logs_type=\'login\' limit 10')
-					],
-					[
-						'title'    => $this->trans->get('title_post'),
-						'subtitle' => $this->trans->get('top10_post_viewer'),
-						'count'    => Post::findBySql('select 1 from post where view>0')->count(),
-						'list'     => Post::findBySql('select title,ts, view as count from post where view>0 order by view desc limit 10')
-					],
-					[
-						'title'    => $this->trans->get('title_page'),
-						'subtitle' => $this->trans->get('top10_page_viewer'),
-						'count'    => Page::findBySql('select 1 from page where view>0')->count(),
-						'list'     => Page::findBySql('select title,ts,view as count from page where view>0 order by view desc limit 10')
-					]
-				],
-				[
-					[
-						'title'    => $this->trans->get('title_post'),
-						'subtitle' => $this->trans->get('top10_post_share'),
-						'count'    => Post::findBySql('select 1 from post where share>0')->count(),
-						'list'     => Post::findBySql('select title,ts,share as count from post where share>0 order by share desc limit 10')
-					],
-					[
-						'title'    => $this->trans->get('title_search'),
-						'subtitle' => $this->trans->get('top10_keyword_search'),
-						'count'    => Logs::findByLogsType('keyword')->count(),
-						'list'     => Logs::findBySql('select message as title,max(ts) as ts,count(1) as count from logs where logs_type=\'keyword\' group by message limit 10')
-					],
-				]
-			)
-		);
-		$this->render( 'report/' . $action, $data );
+		switch( $action ){
+			case 'dashboard' :
+				$template = 'index';
+				$data = array(
+					'report' => array(
+						[
+							[
+								'title'    => $this->trans->get('title_post'),
+								'subtitle' => $this->trans->get('top10_post_edit'),
+								'count'    => Post::all()->count(),
+								'list'     => Post::findBySql('select title,ts from post order by ts desc limit 10')
+							],
+							[
+								'title'    => $this->trans->get('title_page'),
+								'subtitle' => $this->trans->get('top10_page_edit'),
+								'count'    => Page::all()->count(),
+								'list'     => Page::findBySql('select title,ts from page order by ts desc limit 10')
+							],
+							[
+								'title'    => $this->trans->get('title_user'),
+								'subtitle' => $this->trans->get('top10_user_edit'),
+								'count'    => User::all()->count(),
+								'list'     => User::findBySql('select firstname as title,ts from user order by ts desc limit 10')
+							]
+						],
+						[
+							[
+								'title'    => $this->trans->get('title_user'),
+								'subtitle' => $this->trans->get('top10_user_login'),
+								'count'    => Logs::findByLogsType('login')->count(),
+								'list'     => Logs::findBySql('select distinct message as title,user_id,ts from logs where logs_type=\'login\' limit 10')
+							],
+							[
+								'title'    => $this->trans->get('title_post'),
+								'subtitle' => $this->trans->get('top10_post_viewer'),
+								'count'    => Post::findBySql('select 1 from post where view>0')->count(),
+								'list'     => Post::findBySql('select title,ts, view as count from post where view>0 order by view desc limit 10')
+							],
+							[
+								'title'    => $this->trans->get('title_page'),
+								'subtitle' => $this->trans->get('top10_page_viewer'),
+								'count'    => Page::findBySql('select 1 from page where view>0')->count(),
+								'list'     => Page::findBySql('select title,ts,view as count from page where view>0 order by view desc limit 10')
+							]
+						],
+						[
+							[
+								'title'    => $this->trans->get('title_post'),
+								'subtitle' => $this->trans->get('top10_post_share'),
+								'count'    => Post::findBySql('select 1 from post where share>0')->count(),
+								'list'     => Post::findBySql('select title,ts,share as count from post where share>0 order by share desc limit 10')
+							],
+							[
+								'title'    => $this->trans->get('title_search'),
+								'subtitle' => $this->trans->get('top10_keyword_search'),
+								'count'    => Logs::findByLogsType('keyword')->count(),
+								'list'     => Logs::findBySql('select message as title,max(ts) as ts,count(1) as count from logs where logs_type=\'keyword\' group by message limit 10')
+							],
+						]
+					)
+				);
+			break;
+			case 'export' :
+				$template = 'export';
+				$input = Input::make();
+				if( $input->hasPost('data') ){
+					$data  = $input->post('data');
+					$start = $data['export_start'];
+					$end   = $data['export_end'];
+
+					$logModel = new Logs();
+					$dataLog  = $logModel->getLogByDate( $start, $end );
+					show( $start . " -> " . $end );
+					show($dataLog);
+					exit;
+
+				}
+			break;
+		}
+		$data['isReport'] = 1;
+		$data['action']   = $action;
+
+		$this->render( 'report/' . $template, $data );
 	}
 
 	public function moduleAction( $action ) {
@@ -1284,8 +1304,6 @@ class AdminController extends AbstractBaseController
 						$page   = new Page();
 						$now    = date("Y-m-d H:i:s");
 						$post   = $input->post('data');
-						show($post);
-						exit;
 						$update = array(
 							'content'       => $post['content'],
 							'publish'       => ($post['publish'] ? 1 : 0),
@@ -1504,7 +1522,7 @@ class AdminController extends AbstractBaseController
 				die( 'failed create folder..' . $path);
 			}
 		}
-		chmod( $path, 0755 );
+		// touch( $path );
 	}
 
 	public function getProfileAction(){

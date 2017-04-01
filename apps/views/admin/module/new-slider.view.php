@@ -47,41 +47,6 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
               <label for="inputDetail"><?php echo $this->trans->get('description')?></label>
               <textarea class="form-control" id="inputDetail" rows="4" placeholder="<?php echo $this->trans->get('description')?>" name="data[detail]" required><?php if($edit){ echo $data['detail']; }?></textarea>
             </div>
-            <!-- <div class="form-group">
-              <label for="categoryLabel"><?php echo $this->trans->get('categories')?></label>
-              <select name="data[category_id]" class="form-control" id="categoryLabel"  required>
-                <?php
-                foreach($categoryList as $category){
-                  $selected = ($data['category_id']==$category->category_id) ? 'selected':'';
-                  echo '<option value="'.$category->category_id.'" '.$selected.'>'.$category->$catname.'</option>';
-                }
-                ?>
-              </select> -->
-              <!-- <div class="row">
-                <div class="col-sm-6">
-                  <label for="categoryLabelEN"><?php echo $this->trans->get('category_en')?></label>
-                  <select name="data[category_en]" class="form-control" id="categoryLabelEN" ui-jp="select2" ui-options="{tags:true}" required>
-                    <?php
-                    foreach($this->data['categoryListEN'] as $category){
-                      $selected = ($data['category_en']==$category) ? 'selected':'';
-                      echo '<option value="'.$category->category_en.'" '.$selected.'>'.$category->category_en.'</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-                <div class="col-sm-6">
-                  <label for="categoryLabelTH"><?php echo $this->trans->get('category_th')?></label>
-                  <select name="data[category_th]" class="form-control" id="categoryLabelTH" ui-jp="select2" ui-options="{tags:true}" required>
-                    <?php
-                    foreach($this->data['categoryListTH'] as $category){
-                      $selected = ($data['category_th']==$category) ? 'selected':'';
-                      echo '<option value="'.$category->category_th.'" '.$selected.'>'.$category->category_th.'</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div> -->
-            <!-- </div> -->
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-3">

@@ -23,8 +23,7 @@
 					<li class="nav-header hidden-folded">
 						<small class="text-muted"><?php echo $this->trans->get('main_menu')?></small>
 					</li>
-					<li
-					class="<?php if(!empty($this->data['isDashboard'])){ echo 'active'; } ?>">
+					<li class="<?php if(!empty($this->data['isDashboard'])){ echo 'active'; } ?>">
 						<a href="<?php echo $baseUrl?>admin/dashboard" class="no-ajax">
 							<span class="nav-icon">
 								<i class="material-icons">&#xe3fc;<span ui-include="'/assets/themeforest/assets/images/i_0.svg'"></span></i>
@@ -237,12 +236,27 @@
 					</li>
 					<!-- REPORT -->
 					<li class="<?php if(!empty($this->data['isReport'])){ echo 'active'; }?>">
-						<a href="<?php echo $baseUrl?>report/index" class="no-ajax">
+						<a>
+							<span class="nav-caret">
+								<i class="fa fa-caret-down"></i>
+							</span>
 							<span class="nav-icon">
 								<i class="material-icons">&#xe24b;</i>
 							</span>
 							<span class="nav-text"><?php echo $this->trans->get('report')?></span>
 						</a>
+						<ul class="nav-sub">
+							<li class="<?php if($this->data['action']=='dashboard'){ echo 'active'; }?>">
+								<a href="<?php echo $baseUrl?>report/dashboard" class="no-ajax">
+									<span class="nav-text"><?php echo $this->trans->get('summary')?></span>
+								</a>
+							</li>
+							<li class="<?php if($this->data['action']=='export'){ echo 'active'; }?>">
+								<a href="<?php echo $baseUrl?>report/export" class="no-ajax">
+									<span class="nav-text"><?php echo $this->trans->get('export')?></span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					<!-- INTRO -->
 					<li class="<?php if(!empty($this->data['isIntro'])){ echo 'active'; }?>">

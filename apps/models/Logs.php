@@ -71,4 +71,12 @@ class Logs extends ActiveRecord
     {
         return array('created_at', 'updated_at');
     }
+
+    public function getLogByDate( $start, $end )
+    {
+        $sql  = "select message as title,firstname, lastname, logs.ts from logs join user using(user_id) where logs.ts between ? and ?";
+        $stmt = $this->query( $sql , [ $start, $end ] );
+        $data = $stmt->getAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
 }// End of the User Model

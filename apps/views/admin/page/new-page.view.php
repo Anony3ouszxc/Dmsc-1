@@ -143,8 +143,14 @@ Banner (ภาพตรงไอคอน, โลโก้หน่วยงา�
 							}?>
 						</div>
 						<div class="form-group">
-			              <label for="inputPDF"><?php echo $this->trans->get( 'pdf_attach' ); if( $pdffile ){ echo '('.$pdffile.')'; }?></label>
+			              <label for="inputPDF"><?php echo $this->trans->get( 'pdf_attach' );?></label>
 			              <input type="file" id="inputPDF" class="form-control" name="pdfinput" accept="application/pdf">
+			              <?php if( $pdffile ){
+			                echo '<div class="row pdf-' . $data['pdf_id'] . '">';
+			                echo '<i class="material-icons md-24 text-danger delete-pdf" data-id="'. $data['page_id']. '"></i>';
+			                echo '('.$pdffile.')';
+			                echo '</div>';
+			              }?>
 			            </div>
 			            <div class="form-group">
 			              <div class="row">
