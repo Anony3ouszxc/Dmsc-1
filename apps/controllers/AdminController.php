@@ -1197,7 +1197,7 @@ class AdminController extends AbstractBaseController
 			'title'    => 'Module',
 			'action'   => $action
 		);
-		if ( !in_array( $action, ['all-banner', 'new-banner', 'all-slider', 'new-slider', 'calendar', 'add-banner', 'add-slider', 'edit-banner','edit-slider','update-banner','update-slider','poll','stats','save-calendar','save-stats','save-poll','category-module', 'form-category', 'add-category','edit-category', 'update-category', 'intro'] ) ) {
+		if ( !in_array( $action, ['all-banner', 'new-banner', 'all-slider', 'new-slider', 'calendar', 'add-banner', 'add-slider', 'edit-banner','edit-slider','update-banner','update-slider','poll','stats','save-calendar','save-stats','save-poll','category-module', 'form-category', 'add-category','edit-category', 'update-category', 'intro', 'update-intro'] ) ) {
 			$this->redirectTo( 'admin/error' );
 		} else {
 			$template = $action;
@@ -1298,22 +1298,25 @@ class AdminController extends AbstractBaseController
 					$this->saveCategory( $id, 'module' );
 				break;
 				case 'intro':
-					$input = Input::make();
-
-					if( $input->hasPost('data') ){
-						$page   = new Page();
-						$now    = date("Y-m-d H:i:s");
-						$post   = $input->post('data');
-						$update = array(
-							'content'       => $post['content'],
-							'publish'       => ($post['publish'] ? 1 : 0),
-							'publish_start' => ($post['publish_start'] ? $post['publish_start'] : $now),
-							'publish_end'   => ($post['publish_end'] ? $post['publish_end'] : $now)
-						);
-						$page->updateRecord( $update, 'intro' );
-					}
 					$intro = Post::findBySql("select * from intro");
 					$data['record'] = $intro->offsetGet(0);
+				break;
+				case 'update-intro':
+				$input = Input::make();
+				if( $input->hasPost('data') ){
+					$page   = new Page();
+					$now    = date("Y-m-d H:i:s");
+					$post   = $input->post('data');
+					$update = array(
+						'content'       => $post['content'],
+						'publish'       => ($post['publish'] ? 1 : 0),
+						'publish_start' => ($post['publish_start'] ? $post['publish_start'] : $now),
+						'publish_end'   => ($post['publish_end'] ? $post['publish_end'] : $now)
+					);
+					$page->updateRecord( $update, 'intro' );
+					$this->redirectTo( 'module/intro' );
+					exit;
+				}
 				break;
 			}
 			$this->render( 'module/' . $template, $data );

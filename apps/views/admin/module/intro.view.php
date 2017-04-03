@@ -1,5 +1,5 @@
 <?php
-$formLink = $this->data['baseUrl'].'module/intro/';
+$formLink = $this->data['baseUrl'].'module/update-intro/';
 $data     = $this->data['record']->attributes;
 ?>
 <div class="padding">
@@ -11,7 +11,7 @@ $data     = $this->data['record']->attributes;
         </div>
         <div class="box-divider m-a-0"></div>
         <div class="box-body">
-          <form action="<?php echo $formLink?>" enctype="multipart/form-data" method="POST" role="form" class="embed">
+          <form action="<?php echo $formLink?>" enctype="multipart/form-data" method="POST" role="form">
             <div class="form-group">
               <label for="inputDetail"><?php echo $this->trans->get( 'description' )?></label>
               <textarea ui-jp="summernote" ui-options="{height:'200px'}" class="form-control has-embed" id="inputDetail" rows="4" placeholder="<?php echo $this->trans->get( 'description' )?>" name="data[content]"><?php echo $data['content'];?></textarea>
