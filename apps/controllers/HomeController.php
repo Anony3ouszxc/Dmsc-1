@@ -150,20 +150,38 @@ class HomeController extends AbstractBaseController
      */
     public function indexAction() {
         $this->_countVisit();
-        $banner   = new Banner();
-        $post     = new Post();
-        $calendar = Logs::findBySql('select embed from embed where code=\'calendar\'');
-        $poll     = Logs::findBySql('select embed from embed where code=\'poll\'');
-        $stats    = Logs::findBySql('select embed from embed where code=\'stats\'');
-        $data     = array(
-            // 'title'    => $this->trans->get( 'title_home_page', 'th' ),
-            // 'subtitle' => $this->trans->get( 'subtitle_home_page', 'en' ),
-            'postList' => $post->prepareData(),
-            'slider'   => Slider::all( array( 'orderBy' => 'priority asc') ),
-            'banner'   => $banner->prepareBanner()
-        );
+        $intro     = Category::findBySql("select * from intro where (now() between publish_start and publish_end)");
+        $introData = $intro->offsetGet(0);
+        if( $introData->attributes['publish'] == 1 && ( $introData->attributes['publish_start'] )
+            && empty($_COOKIE['see_intro']) && !$_GET['count'] ){
+            $this->redirectTo( 'home/intro' );
+        } else {
+            if( $_GET['count'] ){
+                setcookie('see_intro', '1', time() + (60 * 60 * 24), "/");
+            }
+            $banner   = new Banner();
+            $post     = new Post();
+            $calendar = Logs::findBySql('select embed from embed where code=\'calendar\'');
+            $poll     = Logs::findBySql('select embed from embed where code=\'poll\'');
+            $stats    = Logs::findBySql('select embed from embed where code=\'stats\'');
+            $data     = array(
+                // 'title'    => $this->trans->get( 'title_home_page', 'th' ),
+                // 'subtitle' => $this->trans->get( 'subtitle_home_page', 'en' ),
+                'postList' => $post->prepareData(),
+                'slider'   => Slider::all( array( 'orderBy' => 'priority asc') ),
+                'banner'   => $banner->prepareBanner()
+            );
 
-        $this->render( 'index', $data );
+            $this->render( 'index', $data );
+        }
+    }
+
+    public function introAction(){
+        $this->layout = 'layout.intro';
+        $intro = Category::findBySql("select * from intro");
+        $data['record'] = $intro->offsetGet(0);
+        $data['intro']  = html_entity_decode($data['record']->attributes['content']);
+        $this->render( 'intro', $data );
     }
 
     public function postGroupAction( $groupId ) {

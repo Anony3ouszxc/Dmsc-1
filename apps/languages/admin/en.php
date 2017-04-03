@@ -167,5 +167,6 @@ return [
 	'export'                   => 'Export',
 	'summary' 				   => 'Summary',
 	'title_export'			   => 'Export activity log',
-	'date_range'			   => 'period'
+	'date_range'			   => 'period',
+	'goto_index' 			   => 'GO TO HOMEPAGE'
 ];

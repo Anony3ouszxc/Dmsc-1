@@ -162,5 +162,6 @@ return [
 	'export'                   => 'ส่งออก',
 	'summary'				   => 'สรุป',
 	'title_export'			   => 'ส่งออกข้อมูลการกระทำ',
-	'date_range'			   => 'ช่วงเวลา'
+	'date_range'			   => 'ช่วงเวลา',
+	'goto_index'			   => 'เข้าสู่หน้าหลัก'
 ];
